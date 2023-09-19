@@ -1,0 +1,45 @@
+                   
+                   
+┌─────────────────┐
+│ 5 Code Findings │
+└─────────────────┘
+                                                                                  
+  [36m[22m[24m  ../java/java-jwt/security/audit/jwt-decode-without-verify.java [0m
+       [1m[24mjava-jwt-none-alg[0m                                                               
+          Detected use of the 'none' algorithm in a JWT token. The 'none' algorithm assumes the  
+          integrity of the token has already been verified. This would allow a malicious actor to
+          forge a JWT token that will automatically be verified. Do not explicitly use the 'none'
+          algorithm. Instead, use an algorithm such as 'HS256'.                                  
+                                                                                                 
+           48┆ [1m[24mAlgorithm algorithm = Algorithm.none();[0m
+           49┆ [1m[24m[0m
+           50┆ [1m[24mString token = JWT.create()[0m
+           51┆ [1m[24m    .withIssuer("auth0")[0m
+           52┆ [1m[24m    .sign(algorithm)[0m;
+                                                               
+  [36m[22m[24m  ../java/java-jwt/security/jwt-hardcode.java [0m
+       [1m[24mjava-jwt-hardcoded-secret[0m                                                           
+          A hard-coded credential was detected. It is not recommended to store credentials in source-
+          code, as this risks secrets being leaked and used by either an internal or external        
+          malicious adversary. It is recommended to use environment variables to securely provide    
+          credentials or retrieve credentials from a secure vault or HSM (Hardware Security Module). 
+                                                                                                     
+           15┆ Algorithm algorithm = Algorithm.HMAC256("[1m[24msecret[0m");
+            ⋮┆----------------------------------------
+           46┆ static String secret = "[1m[24msecret[0m";
+                                                               
+  [36m[22m[24m  ../java/java-jwt/security/jwt-none-alg.java [0m
+       [1m[24mjava-jwt-none-alg[0m                                                               
+          Detected use of the 'none' algorithm in a JWT token. The 'none' algorithm assumes the  
+          integrity of the token has already been verified. This would allow a malicious actor to
+          forge a JWT token that will automatically be verified. Do not explicitly use the 'none'
+          algorithm. Instead, use an algorithm such as 'HS256'.                                  
+                                                                                                 
+           13┆ [1m[24mAlgorithm algorithm = Algorithm.none();[0m
+           14┆ [1m[24mString token = JWT.create()[0m
+           15┆ [1m[24m    .withIssuer("auth0")[0m
+           16┆ [1m[24m    .sign(algorithm)[0m;
+            ⋮┆----------------------------------------
+           25┆ [1m[24mString token = JWT.create()[0m
+           26┆ [1m[24m    .withIssuer("auth0")[0m
+           27┆ [1m[24m    .sign(Algorithm.none())[0m;
